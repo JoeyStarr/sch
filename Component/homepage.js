@@ -28,7 +28,7 @@ const HomePage = ({navigation}) => {
     const [left,setUp] = useState()
 
     const getDada = () => {
-    Axios.get('http://192.168.1.14:8000/stud/') 
+    Axios.get('http://192.168.1.158:8000/stud/') 
       .then(res => {
         console.log(res.data)
         setDada(res.data)

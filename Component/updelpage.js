@@ -20,7 +20,7 @@ const UpDelete = ({navigation,route}) => {
 
 
     const getLeft = () => {
-        Axios.get('http://192.168.1.14:8000/') 
+        Axios.get('http://192.168.1.158:8000/') 
           .then(res => {
             console.log(res.data)
             setUp(res.data)
@@ -36,7 +36,7 @@ const UpDelete = ({navigation,route}) => {
 
 
     const del = () => {
-        Axios.delete(`http://192.168.1.14:8000/delstud/${id}`) 
+        Axios.delete(`http://192.168.1.158:8000/delstud/${id}`) 
         .then(res => {
                 console.log(res.data)
                 setDada(res.data)
@@ -54,7 +54,7 @@ const UpDelete = ({navigation,route}) => {
             moyeninfo:moyi,
             classe:genre
         };
-        Axios.post(`http://192.168.1.14:8000/updstud/${id}/`,data, {
+        Axios.post(`http://192.168.1.158:8000/updstud/${id}/`,data, {
             headers: {'Content-Type': 'application/json'}
         }) 
         .then(res => {

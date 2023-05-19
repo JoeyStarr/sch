@@ -15,7 +15,7 @@ const ClassPage = () => {
           niveau: niv
         };
       
-        Axios.post('http://192.168.1.14:8000/add/', data, {
+        Axios.post('http://192.168.1.158:8000/add/', data, {
           headers: {'Content-Type': 'application/json'}
         })
           .then(res => {
