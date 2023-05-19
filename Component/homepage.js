@@ -1,0 +1,66 @@
+import React,{useEffect,useState} from "react";
+import {View, Text, Pressable, FlatList, Image, Modal, TouchableOpacity} from "react-native";
+import styles from "../jstyle";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import UpDelete from "./updelpage";
+import Axios from 'axios';
+
+  const Item = ({navigation,id,nom,prenom,moyem,moyin,classe}) => {
+  
+    const [show1,setShow1] = useState(false);
+    const mod1 = () => setShow1(c => !c)
+    return (
+      <Pressable style={styles.card} onPress={() => navigation.navigate('Update',{
+        id:id,nom:nom,prenom:prenom,moyem:moyem,moyin:moyin,classe:classe
+      })} >
+          <View>
+            <Text style={{fontSize:20}}>{nom} {prenom}</Text>
+          </View>
+            <Text style={{fontSize:18,fontWeight:700}}>{classe}</Text>
+      </Pressable>
+    )
+  }
+  
+
+
+const HomePage = ({navigation}) => {
+    const [dada,setDada] = useState([])
+    const [left,setUp] = useState()
+
+    const getDada = () => {
+    Axios.get('http://192.168.1.14:8000/stud/') 
+      .then(res => {
+        console.log(res.data)
+        setDada(res.data)
+      })
+      .catch(err => {
+        console.log("error :",err)
+      })
+    }
+    
+
+    useEffect(() =>{
+      getDada()
+    },[])
+
+    console.log(left)
+  
+    return (
+        <View style={styles.containere}>
+            <View style={styles.conteneur}>
+                <FlatList 
+                    style={{width:"90%",height:"100%",backgroundColor:"#E3DFFD"}}
+                    horizontal={false}
+                    data={dada}
+                    renderItem={({item}) => <Item navigation={navigation} id={item.id} nom={item.name} prenom={item.prename} classe={item.classe.niveau} moyem={item.moyenmath} moyin={item.moyeninfo} />}
+                    keyExtractor={item => item.id}
+                />
+            </View>
+            <TouchableOpacity style={styles.add} onPress={getDada}>
+                <Ionicons name="refresh-circle-outline" size={32} color="black" />
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+export default HomePage;
