@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import {View, Text, TextInput, Pressable, Modal} from "react-native";
+import {View, Text, TextInput, Pressable, Modal, TouchableOpacity} from "react-native";
 import styles from "../jstyle";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RadioForm from 'react-native-simple-radio-button'; 
@@ -10,28 +10,17 @@ const CreatePage = () => {
     const [pre,setPre] = useState("")
     const [moym,setMoym] = useState(0)
     const [moyi,setMoyi] = useState(0)
-    
+    const [newclass,setNew] = useState({})
     const [genre,setGenre] = useState()
     const [category,setCategory] = useState("heuu");
 
-    console.log(name,pre,moyi,moym,genre)
-
-    const options = [
-        { label: 'ING3', value: 1 },
-        { label: 'ING2', value: 2 },
-        { label: 'ING1', value: 3 },
-    ];
-
     ///////////
-    const [upper,setUp] = useState()
-
-    console.log(upper)
-
+    const [upper,setUp] = useState([])
 
     const getLeft = () => {
-        Axios.get('http://192.168.1.158:8000/') 
+        Axios.get('http://192.168.1.13:8000/') 
           .then(res => {
-            console.log(res.data)
+            console.log("dshhdiq",res.data)
             setUp(res.data)
           })
           .catch(err => {
@@ -39,9 +28,24 @@ const CreatePage = () => {
           })
     }
 
+    const getDet = () => {
+        Axios.get(`http://192.168.1.13:8000/det/${genre}`) 
+          .then(res => {
+            setNew(res.data)
+            console.log(newclass.id)
+          })
+          .catch(err => {
+            console.log("error :",err)
+          })
+    }
+
+    console.log(upper)
+
     useEffect(() =>{
         getLeft()
     },[])
+
+    console.log(name,pre,moym,moyi,genre)
 
 
     const send = () => {
@@ -50,10 +54,10 @@ const CreatePage = () => {
             prename:pre,
             moyenmath:moym,
             moyeninfo:moyi,
-            classe:genre
+            classe:newclass.id
         };
 
-        Axios.post('http://192.168.1.158:8000/addstud/',data, {
+        Axios.post('http://192.168.1.13:8000/addstud/',data, {
             headers: {'Content-Type': 'application/json'}
           }) 
             .then(res => {
@@ -96,6 +100,7 @@ const CreatePage = () => {
                         initial={0} //initial value of this group
                         onPress={(value) => {
                         setGenre(value);
+                        getDet()
                         }} //if the user changes options, set the new value
                     />
                 </View>
@@ -103,6 +108,9 @@ const CreatePage = () => {
                     <Text style={{color:'white'}}>Valider</Text>
                 </Pressable>
             </View>
+                <TouchableOpacity style={styles.add3}  onPress={getLeft}>
+                    <Ionicons name="refresh-circle-outline" size={32} color="black" />
+                </TouchableOpacity>
         </View>
     )
 }

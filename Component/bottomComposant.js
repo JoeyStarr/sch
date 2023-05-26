@@ -6,14 +6,13 @@ import HomePage from './homepage';
 import CreatePage from './createpage';
 import UpDelete from './updelpage';
 import ClassPage from './classepage';
-import Homie from './stackComposant';
+import Classie from './stackClasse';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
     return (
-        <NavigationContainer>
             <Tab.Navigator
                 tabBarOptions={{
                     activeTintColor: '#fff',
@@ -44,10 +43,9 @@ export default function MyTabs() {
                       
                     }
             >
-                <Tab.Screen name="Liste des etudiants" component={Homie} />
+                <Tab.Screen name="Liste des etudiants" component={HomePage} />
                 <Tab.Screen name="Classe" component={ClassPage} />
                 <Tab.Screen name="creation d'étudiant" component={CreatePage} />
             </Tab.Navigator>
-        </NavigationContainer>
     );
   }

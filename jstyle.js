@@ -59,6 +59,27 @@ const styles = StyleSheet.create({
 
     },
 
+    kard:{
+        width:"90%",
+        height:'auto',
+        backgroundColor:"#ECF2FF",
+        marginVertical:10,
+        borderRadius:10,
+        padding:20,
+        flexDirection:"row",
+        justifyContent:"space-around",
+        alignItems:"center",
+        shadowColor: "#B799FF",
+        shadowOffset: {
+            width: 3,
+            height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 25,
+
+    },
+
     radio:{
         flexDirection:"row",
         flexWrap:"wrap"
@@ -74,6 +95,48 @@ const styles = StyleSheet.create({
         position:"absolute",
         bottom:50,
         right:30,
+
+        shadowColor: "#B799FF",
+        shadowOffset: {
+            width: 3,
+            height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 25,
+    },
+
+    add2:{
+        backgroundColor:"#ACBCFF",
+        padding:15,
+        borderRadius:25,
+        justifyContent:"center",
+        alignItems:"center",
+
+        position:"absolute",
+        bottom:130,
+        right:30,
+
+        shadowColor: "#B799FF",
+        shadowOffset: {
+            width: 3,
+            height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 25,
+    },
+
+    add3:{
+        backgroundColor:"#ACBCFF",
+        padding:15,
+        borderRadius:25,
+        justifyContent:"center",
+        alignItems:"center",
+
+        position:"absolute",
+        bottom:20,
+        right:10,
 
         shadowColor: "#B799FF",
         shadowOffset: {

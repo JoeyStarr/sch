@@ -6,23 +6,18 @@ import RadioForm from 'react-native-simple-radio-button';
 import Axios from 'axios';
 
 const UpDelete = ({navigation,route}) => {
-    console.log("route",route.params)
-    const {id,nom,prenom,moyem,moyin,classe} = route.params
+    const {id,nom,prenom,moyem,moyin,niveau} = route.params
     const [name,setName] = useState(nom)
     const [pre,setPre] = useState(prenom)
     const [moym,setMoym] = useState(moyem)
     const [moyi,setMoyi] = useState(moyin)
-    const [genre,setGenre] = useState(classe)
-
+    const [genre,setGenre] = useState(niveau)
+    const [newclass,setNew] = useState({})
     const [upper,setUp] = useState()
 
-    console.log(upper)
-
-
     const getLeft = () => {
-        Axios.get('http://192.168.1.158:8000/') 
+        Axios.get('http://192.168.1.13:8000/') 
           .then(res => {
-            console.log(res.data)
             setUp(res.data)
           })
           .catch(err => {
@@ -35,8 +30,21 @@ const UpDelete = ({navigation,route}) => {
     },[])
 
 
+
+    const getDet = () => {
+        Axios.get(`http://192.168.1.13:8000/det/${genre}`) 
+          .then(res => {
+            setNew(res.data)
+            console.log(newclass)
+          })
+          .catch(err => {
+            console.log("error :",err)
+          })
+    }
+
+
     const del = () => {
-        Axios.delete(`http://192.168.1.158:8000/delstud/${id}`) 
+        Axios.delete(`http://192.168.1.13:8000/delstud/${id}`) 
         .then(res => {
                 console.log(res.data)
                 setDada(res.data)
@@ -52,18 +60,16 @@ const UpDelete = ({navigation,route}) => {
             prename:pre,
             moyenmath:moym,
             moyeninfo:moyi,
-            classe:genre
+            classe:newclass.id
         };
-        Axios.post(`http://192.168.1.158:8000/updstud/${id}/`,data, {
+        Axios.post(`http://192.168.1.13:8000/updstud/${id}/`,data, {
             headers: {'Content-Type': 'application/json'}
         }) 
         .then(res => {
                 console.log(res.data)
-                setDada(res.data)
         })
         .catch(err => {
                 console.log("error :",err)
-                console.log("data :",data)
         })
     }
 
@@ -77,15 +83,10 @@ const UpDelete = ({navigation,route}) => {
         del()
     }
 
-    const options = [
-        { label: 'ING3', value: 1 },
-        { label: 'ING2', value:2 },
-        { label: 'ING1', value: 3 },
-    ];
 
     return (
         <View style={styles.contain}>
-            <Pressable onPress={() =>navigation.goBack()} style={{margin:10}}>
+            <Pressable onPress={() =>navigation.goBack()} style={{marginTop:60}}>
                 <Ionicons name="arrow-back-outline" size={32} color="black" />
             </Pressable>
             <View  style={styles.formulaire}>
@@ -96,10 +97,11 @@ const UpDelete = ({navigation,route}) => {
                 <View style={styles.input}>
                     <RadioForm
                         style={styles.radio}
-                        radio_props={options}
-                        initial={classe -1} //initial value of this group
+                        radio_props={upper}
+                        initial={niveau} //initial value of this group
                         onPress={(value) => {
-                        setGenre(value);
+                            setGenre(value);
+                            getDet(value)
                         }} //if the user changes options, set the new value
                     />
                 </View>

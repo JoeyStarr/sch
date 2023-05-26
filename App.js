@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import MyTabs from './Component/bottomComposant';
-
+import Homie from './Component/stackComposant';
 
 export default function App() {
   return (
     <>
-      <MyTabs />
+      <Homie />
       <StatusBar style="auto" />
     </>
   );
